@@ -5,7 +5,7 @@ use tokio::time::timeout;
 use reqwest::Client;
 use std::env;
 use std::fs::File;
-use std::io::{self, BufRead, BufReader};
+use std::io::{BufRead, BufReader}; // Removed unused 'self'
 use indicatif::{ProgressBar, ProgressStyle};
 use tokio::task;
 
@@ -89,7 +89,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 
 // Scan a single host
-async fn scan_host(client: &Client, host: &str) -> Result<bool, Box<dyn std::error::Error>> {
+async fn scan_host(client: &Client, host: &str) -> Result<bool, reqwest::Error> {
     if let Ok(ip_addr) = host.parse::<IpAddr>() {
         let port = 80;
         if is_port_open(ip_addr, port).await {
